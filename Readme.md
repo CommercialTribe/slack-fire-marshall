@@ -1,4 +1,4 @@
-react-native-opentok
+slack-fire-marshall
 ====================
 
 > Local Wimo device controller
