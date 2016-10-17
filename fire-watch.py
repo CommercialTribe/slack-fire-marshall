@@ -1,9 +1,7 @@
 #!/usr/bin/python
 import requests
-import sys
-from subprocess import call
+import os
 from ouimeaux.environment import Environment
-import re
 
 # fire-watch.py
 # Get a response from slack API that includes channels info
@@ -16,11 +14,13 @@ env.start()
 env.discover()
 switch = env.get_switch('wemo-dev')
 
+# get Slack API token
+slack_api_token = os.environ['SLACK_API_TOKEN']
 
 firestatus = False
 
 print "Starting Slack API check for fire channel!"
-channels_api_url = 'https://slack.com/api/channels.list?token=xoxp-3147255871-63714227125-91680461526-d76c4512a0a899fa3f1171a71bba0f17&pretty=1'
+channels_api_url = 'https://slack.com/api/channels.list?token=%s&pretty=1' % slack_api_token
 
 r = requests.get(channels_api_url)
 if r.status_code != 200:
