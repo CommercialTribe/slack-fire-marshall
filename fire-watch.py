@@ -12,7 +12,10 @@ from ouimeaux.environment import Environment
 env = Environment()
 env.start()
 env.discover()
-switch = env.get_switch('wemo-dev')
+
+# Names of current CT switches for reference
+# dev_switch = env.get_switch('wemo-dev')
+# cs_switch = env.get_switch('wemo-cs')
 
 # get Slack API token
 slack_api_token = os.environ['SLACK_API_TOKEN']
@@ -31,10 +34,16 @@ if r.status_code != 200:
 for channel in r.json()['channels']:
     if 'fire-' in str(channel['name']) and str(channel['is_archived']) != 'True':
         print "Fire channel found: %s" % channel['name']
-        print "Channel Status: %s " % channel['is_archived']
+        print "Channel archived status: %s " % channel['is_archived']
         firestatus = True
-        switch.on()
+        # Turn on all switches in this lan
+        for switch in (env.list_switches()):
+            print("Turning On : " + switch)
+            env.get_switch(switch).on()
 
 if not firestatus:
+    # Turn off all switches
     print 'No fires found in slack'
-    switch.off()
+    for switch in (env.list_switches()):
+        print("Turning Off: " + switch)
+        env.get_switch(switch).off()
