@@ -23,7 +23,10 @@ slack_api_token = os.environ['SLACK_API_TOKEN']
 firestatus = False
 
 print "Starting Slack API check for fire channel! Switches:"
-env.list_switches()
+lan_switches = env.list_switches()
+for sw in lan_switches:
+    print sw
+
 channels_api_url = 'https://slack.com/api/channels.list?token=%s&pretty=1' % slack_api_token
 
 r = requests.get(channels_api_url)
