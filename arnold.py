@@ -19,7 +19,11 @@ qs = [
     "You hit like a vegetarian!",
     "What the fuck did I do wrong?!"]
 
-q = randint(0,9)
+q = randint(0,15)
 
-call(["say", "-v", "Daniel", qs[q]])
+try:
+    call(["say", "-v", "Daniel", qs[q]])
+except KeyError:
+    call(["say", "-v", "Daniel", "Doh off by one!!"])
+
 
