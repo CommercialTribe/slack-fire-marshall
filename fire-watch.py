@@ -30,6 +30,10 @@ for sw in lan_switches:
 channels_api_url = 'https://slack.com/api/channels.list?token=%s&pretty=1' % slack_api_token
 
 r = requests.get(channels_api_url)
+
+for ch in r.json()['channels']:
+    print ch
+    print 40 * "########"
 if r.status_code != 200:
     print "Couldn't get a valid response from Slack api, maybe check API token"
     exit(1)
