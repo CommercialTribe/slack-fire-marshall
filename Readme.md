@@ -5,7 +5,7 @@ slack-fire-marshall
 Monitor CT slack API for channels starting with fire- , and signal a LAN enabled Wimo device to turn on. When no channels starting in fire- are found
 signal to the divice to turn off
 
-## Requirements
+### Requirements
 ```
 easy_install oiumeaux
 pip install requests
